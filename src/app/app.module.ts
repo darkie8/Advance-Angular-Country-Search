@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 // routing
 import { RouterModule, Routes } from '@angular/router';
@@ -14,6 +14,7 @@ import { RegionsComponent } from './region-view/regions/regions.component';
 import { RegionViewModule } from './region-view/region-view.module';
 import { CountryViewModule } from './country-view/country-view.module';
 import { SingleCountryViewModule } from './single-country-view/single-country-view.module';
+import { CountryComponent } from './country-view/country/country.component';
 @NgModule({
   declarations: [
     AppComponent
@@ -27,7 +28,8 @@ import { SingleCountryViewModule } from './single-country-view/single-country-vi
     SingleCountryViewModule,
     RouterModule.forRoot([{ path: 'regions', component: RegionsComponent, pathMatch: 'full' },
     { path: '', component: RegionsComponent },
-    { path: '*', component: RegionsComponent }], {useHash: true})
+    { path: '*', component: RegionsComponent },
+    {path: 'regions/:reg', component: CountryComponent}], { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]
