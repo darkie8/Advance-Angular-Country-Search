@@ -33,7 +33,7 @@ export class RegionFirstChnageComponent implements OnInit, OnChanges {
     this.pix1 = pix.currentValue;
   }
   /**
-   * routing to country view 
+   * routing to country view
    */
   public goToCountryView = (x): any => {
     this.router.navigate([`/regions`, x]);
