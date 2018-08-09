@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-
+import { Router } from '../../../../node_modules/@angular/router';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'region-first-chnage',
@@ -14,7 +14,7 @@ export class RegionFirstChnageComponent implements OnInit, OnChanges {
   public regionName: string;
   public regionDescription: any;
   public pix1: any;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.regionName = this.regName1;
@@ -31,5 +31,11 @@ export class RegionFirstChnageComponent implements OnInit, OnChanges {
     this.regionDescription = desc.currentValue;
     const pix = changes.regPix;
     this.pix1 = pix.currentValue;
+  }
+  /**
+   * routing to country view 
+   */
+  public goToCountryView = (x): any => {
+    this.router.navigate([`/regions`, x]);
   }
 }

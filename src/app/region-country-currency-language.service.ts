@@ -50,9 +50,9 @@ export class RegionCountryCurrencyLanguageService {
     {
       'pix': 'assets/oceania.jpg',
       'status': false,
-      'name': 'Oceania'
+      'name': 'Oceania',
       // tslint:disable-next-line:max-line-length
-      , 'description': 'The region of Oceania and Australia includes the continent of Australia as well as many surrounding island countries.'
+       'description': 'The region of Oceania and Australia includes the continent of Australia as well as many surrounding island countries.'
     }
   ];
   /**
