@@ -54,7 +54,7 @@ export class CountryComponent implements OnInit {
     localStorage.setItem('name', z);
     this.filter.filterType = localStorage.getItem('Filter_type');
     this.filter.by = localStorage.getItem('by');
-    this.router.navigate(['/', this.filter.filterType.toLocaleLowerCase(), localStorage.getItem('code')]);
+    this.router.navigate(['/', this.filter.filterType.toLocaleLowerCase(), localStorage.getItem('name')]);
     console.log(this.filter);
     this.filter.name = localStorage.getItem('name');
     $('#A3').html(`<p class="mb-0 p-2">Filtered by :<br> ${this.filter.filterType} called ${this.filter.name} !<p>`);
