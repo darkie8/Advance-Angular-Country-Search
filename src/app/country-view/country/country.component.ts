@@ -51,7 +51,7 @@ export class CountryComponent implements OnInit {
   public filterNameStore = (x: any, y: any, z: any) => {
     localStorage.setItem('Filter_type', y);
     localStorage.setItem('by', x);
-    localStorage.setItem('name', z)
+    localStorage.setItem('name', z);
     this.filter.filterType = localStorage.getItem('Filter_type');
     this.filter.by = localStorage.getItem('by');
     this.router.navigate(['/', this.filter.filterType.toLocaleLowerCase(), localStorage.getItem('code')]);
