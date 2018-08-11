@@ -36,6 +36,10 @@ export class RegionFirstChnageComponent implements OnInit, OnChanges {
    * routing to country view
    */
   public goToCountryView = (x): any => {
-    this.router.navigate([`/regions`, x]);
+    const y = 'region';
+    localStorage.setItem('Filter_type', y);
+    localStorage.setItem('by', x);
+    this.router.navigate([`/`, y, x]);
+
   }
 }

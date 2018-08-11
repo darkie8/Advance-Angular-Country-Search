@@ -1,3 +1,101 @@
-<p>
-  country works!
-</p>
+<h1 class="text-center pt-4">Counties</h1>
+<div  style="position: fixed;z-index: 2;top: 78px" class="scrollneed p-2 pl-1">
+    <nav aria-label="Page navigation example" >
+        <ul class="pagination">
+          
+          <li class="page-item text-center"><a style="width: 30px;" class="page-link text-center p-0" href="#crude{{n}}"  *ngFor="let j of this.countryInfos.sortedAlphabet;index as n"><small>#{{j}}</small></a></li>
+    
+        </ul>
+      </nav>
+  </div>
+<div class="row mx-0" style="position: relative;top: 10px;z-index: 1;">
+  
+    
+
+  <div class="col-1">
+  </div>
+  <div class="col-10  mx-1 w-75">
+    <div id="A3"></div>
+    <div id="crude{{n}}" class=" border border-dark mb-2 p-2" *ngFor="let m of this.countryInfos.sortedAlphabet;index as n">
+      <div class="w-100">
+        <h3>#{{m}}</h3>
+      </div>
+
+      <div class="card-columns mt-2">
+        <div class="card alert-danger" id="card{{x.name.charAt(0)}}{{i}}" *ngFor="let x of this.countryInfos.sortedProduct[n];index as i">
+          <a style="color: black !important;">
+            <img id='id{{i}}' class="card-img-top pos" src={{x.flag}} style="padding: 12%;height: 16vw;">
+            <div class="card-body px-0">
+              <h5 class="card-title text-center" style="height: 70px;">{{x.name}}</h5>
+
+              <div class="accordion" id="accordion{{x.name}}">
+                <div class="card">
+                  <div class="card-header p-0" style="height: 38px;" id="headingOne">
+                    <div class="row w-100 m-0 bg-white">
+                      <div class="col-2 m-0 p-0"></div>
+                      <a class="btn btn-link col-8" type="link" data-toggle="collapse" href="#collapse{{x.name}}" aria-expanded="true">
+                       <small>Infos ⇳</small>
+                      </a>
+                      <div class="col-2 m-0 p-0"></div>
+                    </div>
+                  </div>
+
+                  <div id="collapse{{x.name}}" class="collapse" aria-labelledby="headingOne">
+                    <div class="card-body px-0">
+
+                      <div class="list-group mx-1">
+                        <a class="list-group-item list-group-item-action active text-white">
+                          Capital
+                        </a>
+                        <a class="list-group-item list-group-item-action">
+                          <small>{{x.capital}}</small>
+                        </a>
+                        <a class="list-group-item list-group-item-action active text-white">Languages</a>
+                        <a class="list-group-item list-group-item-action">
+                          <small *ngFor="let i of x.languages;let l = last" [ngSwitch]="l" (click)="Filter(i.iso639_1, 'lang');filterNameStore( i.iso639_1, 'Language', i.name);">
+                            <p *ngSwitchCase="true" class="btn-link">
+                              {{i.name}}({{i.nativeName}}) .
+                            </p>
+                            <p *ngSwitchDefault class="btn-link">
+                              {{i.name}}({{i.nativeName}}),
+                            </p>
+                          </small>
+                        </a>
+                        <a class="list-group-item list-group-item-action disabled active text-white">Currencies</a>
+                        <a class="list-group-item list-group-item-action">
+                          <small *ngFor="let i of x.currencies;let l = last" (click)="filterNameStore( i.code, 'Currency', i.name)">
+                            <span class="btn-link" (click)="Filter(i.code, 'currency')">{{i.name}}</span>
+                            <span *ngIf="i.symbol" class="btn-link">({{i.symbol}})</span>
+                            <span *ngIf="!l">,</span>
+                            <span *ngIf="l">.</span>
+                          </small>
+                        </a>
+                        <a class="list-group-item list-group-item-action disabled active text-white">Lat & Long</a>
+                        <a class="list-group-item list-group-item-action" style="text-align: center;">
+                          <small style="text-align: center;">{{x.latlng}}</small>
+                        </a>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="card-footer text-center {{x.region}}1"
+             [ngClass]="{'bg-primary text-light': x.region == 'Asia','bg-success text-light': x.region == 'Africa','bg-danger text-light': x.region == 'Americas',
+             'bg-warning': x.region == 'Europe','bg-info text-light': x.region == 'Oceania'}">
+              <p class="text-center m-0 {{x.region}}1">{{x.region}}</p>
+            </div>
+          </a>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-1"></div>
+</div>

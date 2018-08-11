@@ -29,7 +29,7 @@ import { CountryComponent } from './country-view/country/country.component';
     RouterModule.forRoot([{ path: 'regions', component: RegionsComponent, pathMatch: 'full' },
     { path: '', component: RegionsComponent },
     { path: '*', component: RegionsComponent },
-    {path: 'regions/:reg', component: CountryComponent}], { useHash: true })
+    {path: ':object1/:object2', component: CountryComponent, pathMatch: 'full'}], { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]

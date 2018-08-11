@@ -1,0 +1,14 @@
+@media screen and (max-width: 575px) {
+    .pos {
+      height: 60vw !important;
+    }
+  }
+  @media screen and (max-height: 510px){
+    .scrollneed {
+      height: 80vh;
+      overflow-y: scroll;
+    }
+  }
+  .Asia1, .Africa1, .Americas1, .Oceania1 {
+    color: white !important;
+  }

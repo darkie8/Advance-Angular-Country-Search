@@ -8,11 +8,13 @@ import { ToastModule } from 'ng6-toastr';
 import { ShareBindingModule } from '../share-binding/share-binding.module';
 import { RegionFirstChnageComponent } from '../share-binding/region-first-chnage/region-first-chnage.component';
 import { ButtonRegionComponent } from '../share-binding/button-region/button-region.component';
+import { NgHttpLoaderModule } from '../../../node_modules/ng-http-loader';
 @NgModule({
   imports: [
     ShareBindingModule,
     CommonModule,
     FormsModule,
+    NgHttpLoaderModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
