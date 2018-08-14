@@ -15,6 +15,7 @@ import { RegionViewModule } from './region-view/region-view.module';
 import { CountryViewModule } from './country-view/country-view.module';
 import { SingleCountryViewModule } from './single-country-view/single-country-view.module';
 import { CountryComponent } from './country-view/country/country.component';
+import { SingleCountryComponent } from './single-country-view/single-country/single-country.component';
 @NgModule({
   declarations: [
     AppComponent
@@ -29,7 +30,8 @@ import { CountryComponent } from './country-view/country/country.component';
     RouterModule.forRoot([{ path: 'regions', component: RegionsComponent, pathMatch: 'full' },
     { path: '', component: RegionsComponent },
     { path: '*', component: RegionsComponent },
-    {path: ':object1/:object2', component: CountryComponent, pathMatch: 'full'}], { useHash: true })
+    {path: ':object1/:object2', component: CountryComponent, pathMatch: 'full'},
+    {path: ':region/:country/:object1', component: SingleCountryComponent}], { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]

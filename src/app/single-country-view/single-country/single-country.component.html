@@ -1,0 +1,88 @@
+<div class="card text-center" style="position: relative;top: 78px;z-index: 1;">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={{link}}>Wiki</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+
+    <div class="card-columns row" *ngIf="infoKeys && infoValues">
+      <div class="card col-sm-4 p-2">
+        <img class="card-img-top" src={{info.flag}} alt="Card image cap">
+      </div>
+      <div class="card col-sm-8">
+        <div class="table-responsive">
+          <table class="table table-hover text-capitalize">
+            <tbody class="w-100">
+              <tr *ngFor="let x of infoKeys; let i=index">
+                <ng-template [ngIf]="x !== 'flag'">
+                  <td scope="row" style="width: 10vw !important;font-weight: bold !important;">{{x}}</td>
+                  <td style="text-align:justify;font-size: 15px" class="w-75">
+                    <span *ngIf="x === 'languages' || x === 'currencies' || x === 'translations' || x === 'regionalBlocs'; else bee">
+
+                      <span *ngIf="x === 'translations';else not">
+                        <span *ngFor="let itemt of translations; let in=index;let l = last">
+                          {{translationsKeys[in]}} => {{itemt}}
+                          <br>
+                        </span>
+                      </span>
+
+                      <ng-template #not>
+                        <span *ngIf="infoValues[i].length > 0; else na">
+                          <span *ngFor="let obj of infoValues[i];let l = last">
+                            {{obj.name}}(
+
+                            <span ng-if="obj.acronym">{{obj.acronym}}</span>
+
+                            <span *ngIf="obj.otherAcronyms && obj.otherAcronyms.length !== 0 ">
+                              <span *ngFor="let op of obj.otherAcronyms; let l1 = last; let f1 = first">
+                                <span *ngIf="f1">/</span>{{op}})
+                                <span *ngIf="!l1;else stop1">/</span>
+                                <ng-template #stop1> .</ng-template>
+                              </span>
+
+
+                            </span>
+                            <span *ngIf="x !== 'regionalBlocs'">
+
+                              <span *ngIf="obj.nativeName">{{obj.nativeName}}</span>
+                              <span>{{obj.symbol}}</span>)
+                              <span *ngIf="!l;else stop">,</span>
+                              <ng-template #stop> .</ng-template>
+                            </span>
+                            
+                          </span>
+                        </span>
+                        <ng-template #na>
+                          N/A
+                        </ng-template>
+                      </ng-template>
+                    </span>
+                    <!--wrong1-->
+                    <ng-template #bee>
+                      <span *ngIf="infoValues[i] !== null || infoValues[i] !== undefined || infoValues[i].length > 0;else na1">
+                        {{infoValues[i]}}
+                      </span>
+                      <ng-template #na1>
+                        N/A
+                      </ng-template>
+                    </ng-template>
+                  </td>
+                </ng-template>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <a class="btn btn-primary mb-1">Go Back</a>
+        <br><br>
+      </div>
+    </div>
+
+  </div>
+</div>

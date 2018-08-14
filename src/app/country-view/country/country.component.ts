@@ -27,9 +27,9 @@ export class CountryComponent implements OnInit {
 
   ngOnInit() {
 
-    this.id = this.routeEnd.snapshot.paramMap.get('object2');
     this.id1 = this.routeEnd.snapshot.paramMap.get('object1');
-      this.Filter(this.id, this.id1);
+    this.id2 = (this.id1 === 'region') ? this.routeEnd.snapshot.paramMap.get('object2') : localStorage.getItem('by');
+      this.Filter(this.id2, this.id1);
   }
   /**
    * Filter countries as per need
@@ -38,9 +38,11 @@ export class CountryComponent implements OnInit {
     this.httpService.counties(x, y).subscribe(
       data => {
         console.log(data);
+        console.log(`${x},${y}`);
         this.countryInfos = this.httpService.soting(data);
       },
       err => {
+        console.log(`${x},${y}`);
         console.log('error fetching request');
       }
     );
@@ -54,7 +56,7 @@ export class CountryComponent implements OnInit {
     localStorage.setItem('name', z);
     this.filter.filterType = localStorage.getItem('Filter_type');
     this.filter.by = localStorage.getItem('by');
-    this.router.navigate(['/', this.filter.filterType.toLocaleLowerCase(), localStorage.getItem('name')]);
+    this.router.navigate(['/', this.filter.filterType.toLocaleLowerCase(), localStorage.getItem('name').replace(/ /gi, '_')]);
     console.log(this.filter);
     this.filter.name = localStorage.getItem('name');
     $('#A3').html(`<p class="mb-0 p-2">Filtered by :<br> ${this.filter.filterType} called ${this.filter.name} !<p>`);

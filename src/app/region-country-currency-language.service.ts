@@ -14,7 +14,7 @@ declare var $: any;
 })
 export class RegionCountryCurrencyLanguageService {
   private url = 'https://restcountries.eu/rest/v2/';
-  private fieldParam = 'flag;name;capital;languages;currencies;latlng;region;';
+  private fieldParam = 'flag;name;capital;languages;currencies;latlng;region;alpha2Code;';
   public finalProduct: any;
   public sortedProduct: any;
   public sortedAlphabet: any;
@@ -58,7 +58,7 @@ export class RegionCountryCurrencyLanguageService {
       'status': false,
       'name': 'oceania',
       // tslint:disable-next-line:max-line-length
-       'description': 'The region of Oceania and Australia includes the continent of Australia as well as many surrounding island countries.'
+      'description': 'The region of Oceania and Australia includes the continent of Australia as well as many surrounding island countries.'
     }
   ];
   /**
@@ -85,6 +85,12 @@ export class RegionCountryCurrencyLanguageService {
   public counties(x, y) {
     return this.http.get(`${this.url}${y}/${x}?fields=${this.fieldParam}`, { responseType: 'json' });
   }
+  /**
+   * countryIndv
+   */
+  public countryIndv(x, y) {
+    return this.http.get(`${this.url}${x}/${y}?fullText=true`);
+  }
 
   public soting(x) {
     this.finalProduct = this.alphabet.map(main => {
@@ -99,6 +105,6 @@ export class RegionCountryCurrencyLanguageService {
     // tslint:disable-next-line:max-line-length
     this.sortedNames = this.sortedProduct.map(obj1 => obj1.map(obj => obj.name.replace(/ /g, '_')));
     console.log(this.sortedNames);
-    return {sortedProduct: this.sortedProduct, sortedAlphabet: this.sortedAlphabet, sortedNames: this.sortedNames};
+    return { sortedProduct: this.sortedProduct, sortedAlphabet: this.sortedAlphabet, sortedNames: this.sortedNames };
   }
 }
