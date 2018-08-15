@@ -1,4 +1,6 @@
-<div class="card text-center" style="position: relative;top: 78px;z-index: 1;">
+<h1 class="text-center pt-4" *ngIf="info">{{info.name}}</h1>
+<h3 class="text-center" *ngIf="info">({{info.nativeName}})</h3>
+<div class="card text-center mx-3 mb-3" style="position: relative;top: 10px;z-index: 1;">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -14,6 +16,8 @@
     <div class="card-columns row" *ngIf="infoKeys && infoValues">
       <div class="card col-sm-4 p-2">
         <img class="card-img-top" src={{info.flag}} alt="Card image cap">
+        <br><br>
+        <h4 class="text-center" *ngIf="info">Flag of {{info.name}}</h4>
       </div>
       <div class="card col-sm-8">
         <div class="table-responsive">
@@ -22,7 +26,7 @@
               <tr *ngFor="let x of infoKeys; let i=index">
                 <ng-template [ngIf]="x !== 'flag'">
                   <td scope="row" style="width: 10vw !important;font-weight: bold !important;">{{x}}</td>
-                  <td style="text-align:justify;font-size: 15px" class="w-75">
+                  <td style="text-align:left;font-size: 15px" class="w-75">
                     <span *ngIf="x === 'languages' || x === 'currencies' || x === 'translations' || x === 'regionalBlocs'; else bee">
 
                       <span *ngIf="x === 'translations';else not">
@@ -79,7 +83,7 @@
           </table>
         </div>
         <br>
-        <a class="btn btn-primary mb-1">Go Back</a>
+        <a class="btn btn-primary mb-1" (click)="getBack()">Go Back</a>
         <br><br>
       </div>
     </div>

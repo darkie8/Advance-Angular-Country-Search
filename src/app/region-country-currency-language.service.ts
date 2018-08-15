@@ -20,6 +20,7 @@ export class RegionCountryCurrencyLanguageService {
   public sortedAlphabet: any;
   public alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase().split('');
   public sortedNames: any;
+  history = [];
   constructor(private http: HttpClient, private router: Router) { }
 
   // region data api call
@@ -62,24 +63,6 @@ export class RegionCountryCurrencyLanguageService {
     }
   ];
   /**
-   * setItem in local storage
-   */
-  public setItem = (info: any) => {
-    localStorage.setItem('name', info.name);
-    localStorage.setItem('desc', info.description);
-    localStorage.setItem('pix', info.pix);
-    localStorage.setItem('status', info.status);
-  }
-  /**
-   * getItem from local storage
-   */
-  public getItem() {
-    localStorage.getItem('name');
-    localStorage.getItem('desc');
-    localStorage.getItem('pix');
-    localStorage.getItem('status');
-  }
-  /**
    * counties
    */
   public counties(x, y) {
@@ -106,5 +89,20 @@ export class RegionCountryCurrencyLanguageService {
     this.sortedNames = this.sortedProduct.map(obj1 => obj1.map(obj => obj.name.replace(/ /g, '_')));
     console.log(this.sortedNames);
     return { sortedProduct: this.sortedProduct, sortedAlphabet: this.sortedAlphabet, sortedNames: this.sortedNames };
+  }
+  public loadRouting(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(({urlAfterRedirects}: NavigationEnd) => {
+        this.history.push(urlAfterRedirects);
+      });
+  }
+
+  public getHistory(): string[] {
+    return this.history;
+  }
+
+  public getPreviousUrl(): string {
+    return this.history[this.history.length - 2] || '/';
   }
 }

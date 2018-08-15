@@ -1,12 +1,14 @@
 <!--1st hosting-->
-<div class="container-fluid m-0 px-4 pt-4" style="background-image: url('assets/background1.png');height: 120vh;background-position: center;
+<div class="container-fluid m-0 px-md-4 pt-4 px-0" style="background-image: url('assets/background1.png');height: 120vh;background-position: center;
 background-size: contain;">
   <!--card to show regional cards-->
-  <div class="px-4 mx-4">
+  <div class="px-0 mx-sm-4 mx-0 px-sm-4">
     <div class="card text-center mx-4 ">
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
+            
           <li class="nav-item p-0" *ngFor="let r of array; let i = index">
+              
             <button-region [regName]="r.name" [stat]="array1[i]" (regionNameAp)='infoAvailable($event)' (statOutput)='statConfirm($event)'></button-region>
           </li>
         </ul>

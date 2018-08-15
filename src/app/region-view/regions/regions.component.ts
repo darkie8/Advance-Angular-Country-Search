@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges, SimpleChange, Input } from '@angular/core';
 import { RegionCountryCurrencyLanguageService } from '../../region-country-currency-language.service';
 import { of } from '../../../../node_modules/rxjs';
+import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 @Component({
@@ -13,7 +15,9 @@ export class RegionsComponent implements OnInit {
   array1: any;
   status: boolean;
   public object: any;
-  constructor(private region: RegionCountryCurrencyLanguageService) {
+  constructor(private region: RegionCountryCurrencyLanguageService,
+    private cookie: CookieService,
+    private router: Router) {
     this.array = this.region.getRegiondata;
   }
 
@@ -26,14 +30,7 @@ export class RegionsComponent implements OnInit {
    * to get region name and description
    */
   public infoAvailable(x) {
-    const object = of(x);
     this.object = this.region.getRegiondata[x];
-    /*  object.subscribe(data => {
-       console.log(data);
-       this.object = this.region.getRegiondata[data];
-       this.array[data].status = true;
-       console.log(this.array);
-     });*/
   }
   /**
    * statConfirm

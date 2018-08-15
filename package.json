@@ -28,6 +28,7 @@
     "ng-http-loader": "^3.0.0",
     "ng2-cookies": "^1.0.12",
     "ng6-toastr": "^6.0.0",
+    "ngx-cookie-service": "^1.0.10",
     "popper.js": "^1.14.4",
     "rxjs-compat": "^6.2.2",
     "socket.io-client": "^2.1.1",

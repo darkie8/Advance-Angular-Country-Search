@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
 import { RegionCountryCurrencyLanguageService } from '../../region-country-currency-language.service';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 @Component({
@@ -20,16 +21,39 @@ export class CountryComponent implements OnInit {
   };
   id11: any;
   id21: string;
+  previouUrl: string;
 
   constructor(private routeEnd: ActivatedRoute,
     private httpService: RegionCountryCurrencyLanguageService,
+    private cookie: CookieService,
     private router: Router) { }
 
   ngOnInit() {
-
+    this.previouUrl = this.httpService.getPreviousUrl();
+    console.log(this.httpService.getHistory());
     this.id1 = this.routeEnd.snapshot.paramMap.get('object1');
     this.id2 = (this.id1 === 'region') ? this.routeEnd.snapshot.paramMap.get('object2') : localStorage.getItem('by');
-      this.Filter(this.id2, this.id1);
+    if (this.id1 === 'region') {
+      this.cookie.set('region', this.id2);
+    }
+    this.Filter(this.id2, this.id1);
+    // animate the go back button
+    $('.backway').hover(function () {
+      $('.backway').animate({ width: '200px' }, 500).text('Back to Previous Page');
+    },
+      function () {
+        $('.backway').animate({ width: '46px' }, 500).text('❰');
+      });
+    // animate filter free button
+
+    // animate the go back button
+    $('.backway1').hover(function () {
+      $('.backway1').animate({ width: '200px' }, 500).text('Non filter state');
+    },
+      function () {
+        // tslint:disable-next-line:max-line-length
+        $('.backway1').animate({ width: '46px' }, 500).html('<span style="font-size: 30px !important;right: 5px;margin: 0px;height: 5px !important;position: relative;bottom: 13px" class="p-0 m-0">↺ </span>');
+      });
   }
   /**
    * Filter countries as per need
@@ -61,5 +85,26 @@ export class CountryComponent implements OnInit {
     this.filter.name = localStorage.getItem('name');
     $('#A3').html(`<p class="mb-0 p-2">Filtered by :<br> ${this.filter.filterType} called ${this.filter.name} !<p>`);
     $('#A3').addClass('alert alert-warning');
+  }
+  /**
+   * going to previousPage
+   */
+  public previousPage = () => {
+    this.router.navigate([`/`]);
+    const region = this.cookie.get('region');
+    console.log(region);
+    
+  }
+  /**
+   * getBack to prev page
+   */
+  public getBack = () => {
+    const region = this.cookie.get('region');
+    console.log(region);
+    
+    this.router.navigate([`/region`, region]);
+    this.Filter(region, 'region');
+    $('#A3').html(``);
+    $('#A3').removeClass('alert alert-warning');
   }
 }

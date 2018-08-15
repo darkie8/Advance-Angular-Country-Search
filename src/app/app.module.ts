@@ -10,6 +10,9 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 // http loader spinner
 import { NgHttpLoaderModule } from 'ng-http-loader';
 
+// cookie service
+import { CookieService } from 'ngx-cookie-service';
+
 import { RegionsComponent } from './region-view/regions/regions.component';
 import { RegionViewModule } from './region-view/region-view.module';
 import { CountryViewModule } from './country-view/country-view.module';
@@ -30,10 +33,10 @@ import { SingleCountryComponent } from './single-country-view/single-country/sin
     RouterModule.forRoot([{ path: 'regions', component: RegionsComponent, pathMatch: 'full' },
     { path: '', component: RegionsComponent },
     { path: '*', component: RegionsComponent },
-    {path: ':object1/:object2', component: CountryComponent, pathMatch: 'full'},
+    {path: ':object1/:object2', component: CountryComponent},
     {path: ':region/:country/:object1', component: SingleCountryComponent}], { useHash: true })
   ],
-  providers: [],
+  providers: [ CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

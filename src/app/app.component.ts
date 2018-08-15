@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RegionCountryCurrencyLanguageService } from './region-country-currency-language.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'country-search';
+  constructor(service: RegionCountryCurrencyLanguageService) {
+    service.loadRouting();
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
 import { RegionCountryCurrencyLanguageService } from '../../region-country-currency-language.service';
 import { Observable } from '../../../../node_modules/rxjs';
+import { CookieService } from 'ngx-cookie-service';
 declare var $: any;
 
 @Component({
@@ -16,20 +17,20 @@ export class SingleCountryComponent implements OnInit {
   translations: any;
   translationsKeys: string[];
   link: any;
+  previouUrl: string;
 
   constructor(private service: RegionCountryCurrencyLanguageService,
      private router: Router,
-   private routeEnd: ActivatedRoute) { }
+     private kukku: CookieService,
+     private routeEnd: ActivatedRoute) { }
 
   ngOnInit() {
 this.indvCountry('name', this.routeEnd.snapshot.paramMap.get('object1'));
-const hello = Observable.create(function(observer) {
-  observer.next('Hello');
-  observer.next('World');
-});
+ // setting cookie
+ this.kukku.set('path2', `/name/${this.routeEnd.snapshot.paramMap.get('object1')}?fullText=true`);
+ this.previouUrl = this.service.getPreviousUrl();
+ console.log(this.service.getHistory());
 
-// output: 'Hello'...'World'
-const subscribe = hello.subscribe(val => console.log(val));
   }
 
   /**
@@ -50,5 +51,12 @@ const subscribe = hello.subscribe(val => console.log(val));
         console.log('error fetching');
       }
     );
+  }
+
+  /**
+   * getBack
+   */
+  public getBack() {
+    this.router.navigate([`${this.previouUrl}`]);
   }
 }
