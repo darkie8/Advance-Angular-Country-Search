@@ -18,6 +18,11 @@ export class SingleCountryComponent implements OnInit {
   translationsKeys: string[];
   link: any;
   previouUrl: string;
+  filter = {
+    filterType: '',
+    by: '',
+    name: ''
+  };
 
   constructor(private service: RegionCountryCurrencyLanguageService,
      private router: Router,
@@ -58,5 +63,16 @@ this.indvCountry('name', this.routeEnd.snapshot.paramMap.get('object1'));
    */
   public getBack() {
     this.router.navigate([`${this.previouUrl}`]);
+  }
+  public filterNameStore = (x: any, y: any, z: any) => {
+    localStorage.setItem('Filter_type', y);
+    localStorage.setItem('by', x);
+    localStorage.setItem('name', z);
+    this.filter.filterType = localStorage.getItem('Filter_type');
+    this.filter.by = localStorage.getItem('by');
+    this.router.navigate(['/', this.filter.filterType.toLocaleLowerCase(), localStorage.getItem('name').replace(/ /gi, '_')]);
+    console.log(this.filter);
+    this.filter.name = localStorage.getItem('name');
+    this.kukku.set('event', 'countryBack');
   }
 }

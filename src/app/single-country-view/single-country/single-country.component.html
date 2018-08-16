@@ -38,19 +38,26 @@
 
                       <ng-template #not>
                         <span *ngIf="infoValues[i].length > 0; else na">
-                          <span *ngFor="let obj of infoValues[i];let l = last">
-                            {{obj.name}}(
+                          <span *ngFor="let obj of infoValues[i];let l = last" [ngSwitch]="x">
+                            <span *ngSwitchCase="'languages'"><a class="text-info" #{{x}} (click)="filterNameStore( obj.iso639_1 ,'lang', obj.name)">{{obj.name}}</a></span>
+                            <span *ngSwitchCase="'currencies'"><a class="text-info" #{{x}} (click)="filterNameStore( obj.code ,'currency', obj.name)">{{obj.name}}</a></span>
+                            <span *ngSwitchDefault>{{obj.name}}</span>
+                            (
 
-                            <span ng-if="obj.acronym">{{obj.acronym}}</span>
-
-                            <span *ngIf="obj.otherAcronyms && obj.otherAcronyms.length !== 0 ">
-                              <span *ngFor="let op of obj.otherAcronyms; let l1 = last; let f1 = first">
-                                <span *ngIf="f1">/</span>{{op}})
-                                <span *ngIf="!l1;else stop1">/</span>
-                                <ng-template #stop1> .</ng-template>
+                            <span *ngIf="x === 'regionalBlocs'">
+                              <span ng-if="obj.acronym">{{obj.acronym}}</span>
+  
+                              <span *ngIf="obj.otherAcronyms && obj.otherAcronyms.length !== 0;else poi ">
+                                <span *ngFor="let op of obj.otherAcronyms; let l1 = last; let f1 = first">
+                                  <span *ngIf="f1">/</span>{{op}}
+                                  <span *ngIf="!l1;else stop1">/</span>
+                                  <ng-template #stop1> .</ng-template>
+                                </span>
                               </span>
-
-
+                              <ng-template #poi>
+                            )<span *ngIf="!l;else stop1">,</span>
+                            <ng-template #stop1> .</ng-template>
+                              </ng-template>
                             </span>
                             <span *ngIf="x !== 'regionalBlocs'">
 

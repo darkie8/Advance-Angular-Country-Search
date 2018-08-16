@@ -26,7 +26,7 @@ export class CountryComponent implements OnInit {
   constructor(private routeEnd: ActivatedRoute,
     private httpService: RegionCountryCurrencyLanguageService,
     private cookie: CookieService,
-    private router: Router) { }
+    private router: Router) {}
 
   ngOnInit() {
     this.previouUrl = this.httpService.getPreviousUrl();
@@ -48,7 +48,7 @@ export class CountryComponent implements OnInit {
 
     // animate the go back button
     $('.backway1').hover(function () {
-      $('.backway1').animate({ width: '200px' }, 500).text('Non filter state');
+      $('.backway1').animate({ width: '200px' }, 500).text('Back to Default state');
     },
       function () {
         // tslint:disable-next-line:max-line-length
@@ -93,7 +93,7 @@ export class CountryComponent implements OnInit {
     this.router.navigate([`/`]);
     const region = this.cookie.get('region');
     console.log(region);
-    
+
   }
   /**
    * getBack to prev page
@@ -101,10 +101,8 @@ export class CountryComponent implements OnInit {
   public getBack = () => {
     const region = this.cookie.get('region');
     console.log(region);
-    
+
     this.router.navigate([`/region`, region]);
     this.Filter(region, 'region');
-    $('#A3').html(``);
-    $('#A3').removeClass('alert alert-warning');
   }
 }

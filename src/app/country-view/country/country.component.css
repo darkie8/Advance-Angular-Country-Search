@@ -1,9 +1,9 @@
 @media screen and (max-width: 575px) {
     .pos {
-      height: 60vw !important;
+      height: 48vw !important;
     }
   }
-  @media screen and (max-height: 510px){
+  @media screen and (max-height: 555px){
     .scrollneed {
       height: 80vh;
       overflow-y: scroll;
