@@ -1,13 +1,77 @@
-<div class ="bg-dark">
+<div class ="bg-dark mx-0" style="overflow: hidden;">
+  <div id="filterev" style="position: fixed;height: 100vh;width: 40vw;z-index: 3;left: 100vw;" class="d-flex flex-row bg-light">
+    <div style="width: 30vw;height: 100vh;overflow-y: scroll">
+     <div class ="row m-2"> <button type="button" class="col-12 btn btn-dark w-100" id="backnow" (click)="backto()">
+        Back</button>
+     </div>
 
+     <h3 class="text-center m-2">Filters</h3>
+     
+     <div class="row m-2 p-1">
+
+      <div class="accordion w-100" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Ξ Regions
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body list-group p-2 py-1">
+                <a  (click)="cookie.set('filterNow',ind4);cookie.set('filter?',true)" class="list-group-item list-group-item-action reg" *ngFor="let ind4 of region; let i=index">
+                  <span *ngIf="ind4.length > 0">{{ind4 | titlecase}}</span>
+                </a>
+             </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Ξ Languages
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body list-group p-2 py-1">
+                  <a href="#" class="list-group-item list-group-item-action" *ngFor="let item of languages">{{item}}</a>
+               </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Ξ Currencies
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body list-group p-2 py-1">
+                  <a href="#" class="list-group-item list-group-item-action" *ngFor="let item of currencies">{{item}}</a>
+               </div>
+          </div>
+        </div>
+      </div>
+
+     </div>
+      </div>
+  </div>
   <!--heading-->
   <h1 class="text-center pt-4 text-white">Counties</h1>
-  
+  <!--button for filter-->
     <!--filtering-->
-    <div style="position: fixed;width: 100vw;z-index: 2;height: 150px;top: 100px;" class="d-flex flex-row-reverse">
-        <button type="button" class="btn btn-warning backway t" style="position: fixed;z-index: 2;width: 20px !important;overflow: hidden"
-        (click)="previousPage()">
-      <small>F</small><br><small>I</small><br><small>L</small><br><small>T</small><br><small>E</small><br><small>R</small><br>
+    <div style="position: fixed;width: 100vw;z-index: 1;height: 150px;top: 100px;" class="d-flex flex-row-reverse mx-0">
+        <button type="button" class="btn btn-success font-weight-bold" style="position: fixed;z-index: 2;width: 20px !important;overflow: hidden"
+        (click)="filterev()">
+      <small style="position: relative;right: 3px">F</small><br>
+      <small style="position: relative;right: 3px">I</small><br>
+      <small style="position: relative;right: 3px">L</small><br>
+      <small style="position: relative;right: 3px">T</small><br><small style="position: relative;right: 3px">E</small><br>
+      <small style="position: relative;right: 3px">R</small><br>
       </button>
       </div>
   <div style="position: fixed;z-index: 2;top: 120px;" class="scrollneed p-2 pl-1">
@@ -26,26 +90,26 @@
   </div>
 
   <!--back to region selection page button-->
-  <button type="button" class="btn btn-warning backway" style="position: fixed;z-index: 2;width: 46px !important;overflow: hidden;"
+  <button type="button" class="btn btn-warning backway" style="position: fixed;z-index: 3;width: 46px !important;overflow: hidden;"
     (click)="previousPage()">❰</button>
 
     <!--default state button-->
-  <button type="button" class="btn btn-danger backway1 text-center" style="height: 38px !important;position: fixed;z-index: 2;width: 46px !important;overflow: hidden;top: 30px"
+  <button type="button" class="btn btn-danger backway1 text-center" style="height: 38px !important;position: fixed;z-index: 3;width: 46px !important;overflow: hidden;top: 30px"
     (click)="getBack()">
     <span style="font-size: 30px !important;margin: 0px;height: 5px !important;position: relative;bottom: 13px;right: 5px;" class="p-0 m-0">↺ </span>
   </button>
 
-  <!--button for filter-->
+  
   
 
-  <div class="row mx-0" style="position: relative;top: 10px;z-index: 1;" *ngIf="countryInfos">
+  <div class="row mx-0" style="position: relative;top: 10px;" *ngIf="countryInfos" id="placehold">
   
   
   
     <div class="col-1">
     </div>
     <!--placeto see informations-->
-    <div class="col-10  mx-1 w-75" *ngIf="countryInfos.sortedAlphabet">
+    <div class="col-10  mx-1 w-75" *ngIf="countryInfos.sortedAlphabet" style="z-index: 2">
       <div id="A3" class="pb-0 alert alert-warning">
         <p class="mb-0 p-2">Filtered by :<br> {{this.routeEnd.snapshot.paramMap.get('object1')}} called {{this.routeEnd.snapshot.paramMap.get('object2')}} !<p></p>
       </div>
@@ -134,8 +198,5 @@
       </div>
     </div>
     <div class="col-1">
-      <button type="button" class="btn btn-warning backway" style="z-index: 2;width: 46px !important;overflow: hidden;"
-      (click)="previousPage()">❰</button>
-    </div>
   </div>
 </div>
