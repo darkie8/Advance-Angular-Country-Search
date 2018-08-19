@@ -43,8 +43,7 @@ export class RegionCountryCurrencyLanguageService {
       'pix': 'assets/americas.jpg',
       'status': false,
       'name': 'americas',
-      // tslint:disable-next-line:max-line-length
-      'description': 'The United States has the largest economy in the world. The nation\'s economy accounts for about 25% of the world\'s nominal GDP.'
+      'description': "The Americas (also collectively called America) comprise the totality of the continents of North and South America.Together,they make up most of the land in Earth's western hemisphere and comprise the New World."
     },
     {
       'pix': 'assets/euro.jpg',
@@ -93,7 +92,7 @@ export class RegionCountryCurrencyLanguageService {
   public loadRouting(): void {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(({urlAfterRedirects}: NavigationEnd) => {
+      .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
         this.history.push(urlAfterRedirects);
       });
   }

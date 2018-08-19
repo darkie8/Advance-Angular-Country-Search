@@ -1,0 +1,6 @@
+<a class="list-group-item list-group-item-action reg" (click)="change(ind4)" *ngFor="let ind4 of array; let i=index">
+  <span *ngIf="ind4 && ind4.length > 0;else pork" >{{ind4 | titlecase}}</span>
+<ng-template #pork><span>
+  N/A
+</span></ng-template>
+</a>

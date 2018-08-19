@@ -1,6 +1,6 @@
-<div class="col-10  mx-1 w-75" *ngIf="countryInfos.sortedAlphabet" style="z-index: 2">
+<div class="" *ngIf="countryInfos" style="z-index: 2">
   <div id="A3" class="pb-0 alert alert-warning">
-    <p class="mb-0 p-2">Filtered by :<br> {{this.routeEnd.snapshot.paramMap.get('object1')}} called {{this.routeEnd.snapshot.paramMap.get('object2')}} !<p></p>
+    <p class="mb-0 p-2">Globally Filtered by :<br> {{this.routeEnd.snapshot.paramMap.get('object1')}} called {{this.routeEnd.snapshot.paramMap.get('object2')}} !<p></p>
   </div>
   <div id="crude{{n}}" class=" mb-2 p-2 bg-light" *ngFor="let m of countryInfos.sortedAlphabet;index as n">
     <div class="w-100 text-white">
@@ -38,7 +38,7 @@
                       </a>
                       <a class="list-group-item list-group-item-action active py-1 text-white">Languages</a>
                       <a class="list-group-item list-group-item-action">
-                        <small *ngFor="let i of x.languages;let l = last" [ngSwitch]="l" (click)="Filter(i.iso639_1, 'lang');filterNameStore( i.iso639_1, 'lang', i.name);">
+                        <small *ngFor="let i of x.languages;let l = last" [ngSwitch]="l" (click)="filterNameStore( i.iso639_1, 'lang', i.name);Filter(i.iso639_1, 'lang');">
                           <p *ngSwitchCase="true" class="btn-link">
                             {{i.name}}({{i.nativeName}}) .
                           </p>
@@ -49,8 +49,8 @@
                       </a>
                       <a class="list-group-item list-group-item-action active py-1 text-white">Currencies</a>
                       <a class="list-group-item list-group-item-action">
-                        <small *ngFor="let i of x.currencies;let l = last" (click)="filterNameStore( i.code, 'currency', i.name)">
-                          <span class="btn-link" (click)="Filter(i.code, 'currency')">{{i.name}}</span>
+                        <small *ngFor="let i of x.currencies;let l = last" (click)="Filter(i.code, 'currency');filterNameStore( i.code, 'currency', i.name);">
+                          <span class="btn-link" >{{i.name}}</span>
                           <span *ngIf="i.symbol" class="btn-link">({{i.symbol}})</span>
                           <span *ngIf="!l">,</span>
                           <span *ngIf="l">.</span>
@@ -73,8 +73,12 @@
 
           </div>
           <div class="card-footer text-center {{x.region}}1" [ngClass]="{'bg-primary text-light': x.region == 'Asia','bg-success text-light': x.region == 'Africa','bg-danger text-light': x.region == 'Americas',
-           'bg-warning': x.region == 'Europe','bg-info text-light': x.region == 'Oceania'}">
-            <p class="text-center m-0 {{x.region}}1">{{x.region}}</p>
+           'bg-warning': x.region == 'Europe','bg-info text-light': x.region == 'Oceania','bg-white': x.region == 'Polar'}">
+            <p class="text-center m-0 {{x.region}}1"><span *ngIf="x.region.length > 0;else please">{{x.region}}</span>
+              <ng-template #please>
+                No Region
+              </ng-template>
+            </p>
           </div>
         </a>
 <!--card view end-->

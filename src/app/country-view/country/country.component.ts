@@ -24,16 +24,24 @@ export class CountryComponent implements OnInit {
   previouUrl: string;
   languages: any;
   flat: any;
-  region: any;
-  currencies: any;
-  regionFilter: any;
+  public region: any;
+  public currencies: any;
+  public regionFilter: any;
   sortAlph: any;
+  zango: any;
+  countryInfos1 = {
+    sortedAlphabet: [],
+    sortedNames: [], sortedProduct: []
+  };
+  stat = false;
+  widthWin: number;
   constructor(private routeEnd: ActivatedRoute,
     private httpService: RegionCountryCurrencyLanguageService,
     private cookie: CookieService,
     private router: Router) { }
 
   ngOnInit() {
+    this.stat = false;
     this.cookie.set('filter?', 'false');
     // checking history and previous url
     this.previouUrl = this.httpService.getPreviousUrl();
@@ -51,14 +59,6 @@ export class CountryComponent implements OnInit {
       this.Filter(this.id2, this.id1); // calling the Filter()
 
     }
-
-    /* $('.reg').click(() => {
-       console.log('po');
-       if (this.cookie.get('filter?') === 'true') {
-         // tslint:disable-next-line:max-line-length
-         this.regionFilterf(this.countryInfos.sortedProduct, this.countryInfos.sortedProduct, this.cookie.get('filterNow'), this.countryInfos.sortedAlphabet);
-       }
-     });*/
 
     // animate the go back button
     $('.backway').hover(function () {
@@ -90,6 +90,7 @@ export class CountryComponent implements OnInit {
         console.log(`${x},${y}`); // checking the url
 
         this.countryInfos = this.httpService.soting(data); // get info about countries in alphabetic order
+        this.zango = this.countryInfos;
         // get an array flattened state of the coutry info
         const data1: any = data;
         this.flat = data1.reduce((acc, val) => acc.concat(val), []);
@@ -127,21 +128,6 @@ export class CountryComponent implements OnInit {
     );
   }
   /**
-   * filterNameStore
-   */
-  public filterNameStore = (x: any, y: any, z: any) => {
-    localStorage.setItem('Filter_type', y);
-    localStorage.setItem('by', x);
-    localStorage.setItem('name', z);
-    this.filter.filterType = localStorage.getItem('Filter_type');
-    this.filter.by = localStorage.getItem('by');
-    this.router.navigate(['/', this.filter.filterType.toLocaleLowerCase(), localStorage.getItem('name').replace(/ /gi, '_')]);
-    console.log(this.filter);
-    this.filter.name = localStorage.getItem('name');
-    $('#A3').html(`<p class="mb-0 p-2">Filtered by :<br> ${this.filter.filterType} called ${this.filter.name} !<p>`);
-    $('#A3').addClass('alert alert-warning');
-  }
-  /**
    * going to previousPage
    */
   public previousPage = () => {
@@ -156,12 +142,14 @@ export class CountryComponent implements OnInit {
   public getBack = () => {
     const region = this.cookie.get('region');
     console.log(region);
-
+    this.stat = false;
     this.router.navigate([`/region`, region]);
     this.Filter(region, 'region');
   }
   public filterev = () => {
-    $('#filterev').animate({ left: '70vw' }, 500);
+    console.log($(window).width());
+     this.widthWin = ($(window).width() < 750) ? (($(window).width() < 500) ? 40 : 60) : 70;
+    $('#filterev').animate({ left: `${this.widthWin}vw` }, 500);
   }
   /**
    * backto
@@ -179,5 +167,37 @@ export class CountryComponent implements OnInit {
     k = x.map(obj => obj[0].name.charAt(0));
     console.log(x);
     console.log(k);
+  }
+  /**
+   * options emitted from the child
+   */
+  public getFilterR(x) {
+    this.region = x;
+    console.log(this.region);
+
+  }
+  public getFilterL(x) {
+    this.languages = x;
+
+  }
+  public getFilterC(x) {
+    this.currencies = x;
+
+  }
+  public statch(x) {
+    this.stat = x;
+  }
+  public true(x) {
+    console.log(x);
+  }
+  /**
+   * name
+   */
+  public getCountryInfos(x) {
+    console.log(x);
+    this.countryInfos1.sortedAlphabet = x.sortedAlphabet;
+    this.countryInfos1.sortedProduct = x.sortedProduct;
+    this.countryInfos1.sortedNames = x.sortedNames;
+    this.stat = true;
   }
 }

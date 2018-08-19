@@ -1,13 +1,13 @@
 <div class ="bg-dark mx-0" style="overflow: hidden;">
   <div id="filterev" style="position: fixed;height: 100vh;width: 40vw;z-index: 3;left: 100vw;" class="d-flex flex-row bg-light">
-    <div style="width: 30vw;height: 100vh;overflow-y: scroll">
+    <div style="width: 30vw;height: 100vh;overflow-y: scroll" id="menu">
      <div class ="row m-2"> <button type="button" class="col-12 btn btn-dark w-100" id="backnow" (click)="backto()">
         Back</button>
      </div>
 
-     <h3 class="text-center m-2">Filters</h3>
+     <h4 class="text-center m-2">Local Filters</h4>
      
-     <div class="row m-2 p-1">
+     <div class="row m-2 p-1" *ngIf="countryInfos">
 
       <div class="accordion w-100" id="accordionExample">
         <div class="card">
@@ -21,9 +21,7 @@
       
           <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body list-group p-2 py-1">
-                <a  (click)="cookie.set('filterNow',ind4);cookie.set('filter?',true)" class="list-group-item list-group-item-action reg" *ngFor="let ind4 of region; let i=index">
-                  <span *ngIf="ind4.length > 0">{{ind4 | titlecase}}</span>
-                </a>
+                <filter-menu [inputFilt]="region"  [inputFilt1]="countryInfos.sortedProduct" (outputFilt1)="getCountryInfos($event)" [type]="'region'"></filter-menu>
              </div>
           </div>
         </div>
@@ -36,8 +34,8 @@
             </h5>
           </div>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-              <div class="card-body list-group p-2 py-1">
-                  <a href="#" class="list-group-item list-group-item-action" *ngFor="let item of languages">{{item}}</a>
+              <div class="card-body list-group p-2 py-1" *ngIf="countryInfos">
+                  <filter-menu [inputFilt]="languages" [inputFilt1]="countryInfos.sortedProduct" (outputFilt1)="getCountryInfos($event)" [type]="'languages'"></filter-menu>
                </div>
           </div>
         </div>
@@ -51,7 +49,7 @@
           </div>
           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
               <div class="card-body list-group p-2 py-1">
-                  <a href="#" class="list-group-item list-group-item-action" *ngFor="let item of currencies">{{item}}</a>
+                  <filter-menu [inputFilt]="currencies" [inputFilt1]="countryInfos.sortedProduct" (outputFilt1)="getCountryInfos($event)" [type]="'currencies'"></filter-menu>
                </div>
           </div>
         </div>
@@ -64,7 +62,7 @@
   <h1 class="text-center pt-4 text-white">Counties</h1>
   <!--button for filter-->
     <!--filtering-->
-    <div style="position: fixed;width: 100vw;z-index: 1;height: 150px;top: 100px;" class="d-flex flex-row-reverse mx-0">
+    <div style="position: fixed;z-index: 1;height: 150px;top: 100px;" class="d-flex flex-row-reverse mx-0 w-100">
         <button type="button" class="btn btn-success font-weight-bold" style="position: fixed;z-index: 2;width: 20px !important;overflow: hidden"
         (click)="filterev()">
       <small style="position: relative;right: 3px">F</small><br>
@@ -102,101 +100,25 @@
   
   
 
-  <div class="row mx-0" style="position: relative;top: 10px;" *ngIf="countryInfos" id="placehold">
-  
-  
+  <div class="row mx-0" style="position: relative;top: 10px;" *ngIf="stat === false" id="placehold">
   
     <div class="col-1">
     </div>
     <!--placeto see informations-->
-    <div class="col-10  mx-1 w-75" *ngIf="countryInfos.sortedAlphabet" style="z-index: 2">
-      <div id="A3" class="pb-0 alert alert-warning">
-        <p class="mb-0 p-2">Filtered by :<br> {{this.routeEnd.snapshot.paramMap.get('object1')}} called {{this.routeEnd.snapshot.paramMap.get('object2')}} !<p></p>
-      </div>
-      <div id="crude{{n}}" class=" mb-2 p-2 bg-light" *ngFor="let m of countryInfos.sortedAlphabet;index as n">
-        <div class="w-100 text-white">
-          <h3><span class="badge badge-dark">#{{m}}</span></h3>
-        </div>
-  
-        <div class="card-columns mt-2" *ngIf="countryInfos.sortedProduct">
-          <div class="card alert-danger" id="card{{x.name.charAt(0)}}{{i}}" *ngFor="let x of countryInfos.sortedProduct[n];index as i">
-            <a style="color: black !important;">
-              <img id='id{{i}}' class="card-img-top pos" src={{x.flag}} style="padding: 12%;height: 16vw;">
-              <div class="card-body px-0">
-                <h5 class="card-title text-center" style="height: 70px;">{{x.name}}</h5>
-  
-                <div class="accordion" id="accordion{{x.name}}">
-                  <div class="card">
-                    <div class="card-header p-0" style="height: 38px;" id="headingOne">
-                      <div class="row w-100 m-0 bg-white">
-                        <div class="col-2 m-0 p-0"></div>
-                        <a class="btn btn-link col-8" type="link" data-toggle="collapse" href="#collapse{{x.alpha2Code}}" aria-expanded="true">
-                          <small>Infos ⇳</small>
-                        </a>
-                        <div class="col-2 m-0 p-0"></div>
-                      </div>
-                    </div>
-  
-                    <div id="collapse{{x.alpha2Code}}" class="collapse" aria-labelledby="headingOne">
-                      <div class="card-body px-0">
-  
-                        <div class="list-group mx-1">
-                          <a class="list-group-item list-group-item-action active py-1 text-white">
-                            Capital
-                          </a>
-                          <a class="list-group-item list-group-item-action">
-                            <small>{{x.capital}}</small>
-                          </a>
-                          <a class="list-group-item list-group-item-action active py-1 text-white">Languages</a>
-                          <a class="list-group-item list-group-item-action">
-                            <small *ngFor="let i of x.languages;let l = last" [ngSwitch]="l" (click)="Filter(i.iso639_1, 'lang');filterNameStore( i.iso639_1, 'lang', i.name);">
-                              <p *ngSwitchCase="true" class="btn-link">
-                                {{i.name}}({{i.nativeName}}) .
-                              </p>
-                              <p *ngSwitchDefault class="btn-link">
-                                {{i.name}}({{i.nativeName}}),
-                              </p>
-                            </small>
-                          </a>
-                          <a class="list-group-item list-group-item-action active py-1 text-white">Currencies</a>
-                          <a class="list-group-item list-group-item-action">
-                            <small *ngFor="let i of x.currencies;let l = last" (click)="filterNameStore( i.code, 'currency', i.name)">
-                              <span class="btn-link" (click)="Filter(i.code, 'currency')">{{i.name}}</span>
-                              <span *ngIf="i.symbol" class="btn-link">({{i.symbol}})</span>
-                              <span *ngIf="!l">,</span>
-                              <span *ngIf="l">.</span>
-                            </small>
-                          </a>
-                          <a class="list-group-item list-group-item-action active py-1 text-white">Lat & Long</a>
-                          <a class="list-group-item list-group-item-action" style="text-align: center;">
-                            <small style="text-align: center;">{{x.latlng}}</small>
-                            <br>
-                            <br>
-                            <button (click)="router.navigate(['/',x.region ,'country', x.name])" type="button" class="btn btn-outline-success">More >></button>
-                          </a>
-  
-                        </div>
-  
-                      </div>
-                    </div>
-                  </div>
-                </div>
-  
-              </div>
-              <div class="card-footer text-center {{x.region}}1" [ngClass]="{'bg-primary text-light': x.region == 'Asia','bg-success text-light': x.region == 'Africa','bg-danger text-light': x.region == 'Americas',
-               'bg-warning': x.region == 'Europe','bg-info text-light': x.region == 'Oceania'}">
-                <p class="text-center m-0 {{x.region}}1">{{x.region}}</p>
-              </div>
-            </a>
-  <!--card view end-->
-  
-  
-  
-  
-          </div>
-        </div>
-      </div>
-    </div>
+    <country-cards  style="z-index: 2"
+     class="col-10 mx-1 w-75" [array]="countryInfos" (output1)='getFilterR($event)'
+     (output2)='getFilterL($event)' (output3)='getFilterC($event)'></country-cards>
     <div class="col-1">
   </div>
+</div>
+<div class="row mx-0" style="position: relative;top: 10px;" *ngIf="stat === true" id="placehold">
+  
+  <div class="col-1">
+  </div>
+  <!--placeto see informations-->
+  <country-cards  style="z-index: 2"
+   class="col-10 mx-1 w-75" [array]="countryInfos1" (output1)='getFilterR($event)'
+   (output2)='getFilterL($event)' (output3)='getFilterC($event)' (output4)="statch($event)"></country-cards>
+  <div class="col-1">
+</div>
 </div>

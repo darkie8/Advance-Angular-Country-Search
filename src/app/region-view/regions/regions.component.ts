@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChange, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RegionCountryCurrencyLanguageService } from '../../region-country-currency-language.service';
 import { of } from '../../../../node_modules/rxjs';
 import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';

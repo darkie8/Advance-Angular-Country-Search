@@ -49,7 +49,7 @@ export class ButtonRegionComponent implements OnInit, OnChanges {
 
     const op = this.bow.filter(obj => obj.name !== this.name); // get which unclicked buttons
     for (const i of op) {
-      $(`.${i.name}`).removeClass('active'); // unclicked button gets inactivated 
+      $(`.${i.name}`).removeClass('active'); // unclicked button gets inactivated
     }
   }
 }
