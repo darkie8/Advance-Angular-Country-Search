@@ -1,5 +1,5 @@
 
     <a class="nav-link m-0 {{name}} d-none d-sm-block" #{{name}} href="#"
     [ngClass]="{'active': status == true}" (click)="emittingClick()">{{name | titlecase}}</a>
-    <a class="nav-link m-0 p-3 py-1  d-block d-sm-none {{name}}" style="font-size: 12px" [ngClass]="{'active': status == true}" (click)="emittingClick()" href="#">{{name.slice(0,2) | titlecase}}</a>
+    <a class="nav-link m-0 py-1 px-2  d-block d-sm-none {{name}}" style="font-size: 12px" [ngClass]="{'active': status == true}" (click)="emittingClick()" href="#">{{name.slice(0,2) | titlecase}}</a>
   

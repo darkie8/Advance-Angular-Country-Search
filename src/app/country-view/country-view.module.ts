@@ -6,6 +6,7 @@ import { CookieService } from '../../../node_modules/ngx-cookie-service';
 import { ShareBindingModule } from '../share-binding/share-binding.module';
 import { CountryCardsComponent } from '../share-binding/country-cards/country-cards.component';
 import { FilterMenuComponent } from '../share-binding/filter-menu/filter-menu.component';
+import { TagAlphabetComponent } from '../share-binding/tag-alphabet/tag-alphabet.component';
 
 @NgModule({
   imports: [

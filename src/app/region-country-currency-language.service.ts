@@ -59,6 +59,13 @@ export class RegionCountryCurrencyLanguageService {
       'name': 'oceania',
       // tslint:disable-next-line:max-line-length
       'description': 'The region of Oceania and Australia includes the continent of Australia as well as many surrounding island countries.'
+    },
+    {
+      'pix': 'assets/polar.jpg',
+      'status': false,
+      'name': 'polar',
+      // tslint:disable-next-line:max-line-length
+      'description': "The polar regions, also called the frigid zones, of Earth are the regions of the planet that surround its geographical poles (the North and South Poles), lying within the polar circles. These high latitudes are dominated by Earth's polar ice caps: the northern resting on the Arctic Ocean and the southern on the continent of Antarctica."
     }
   ];
   /**

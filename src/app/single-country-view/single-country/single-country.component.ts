@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router
 import { RegionCountryCurrencyLanguageService } from '../../region-country-currency-language.service';
 import { Observable } from '../../../../node_modules/rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { Response } from '../../country-view/country/response';
 declare var $: any;
 
 @Component({
@@ -11,7 +12,7 @@ declare var $: any;
   styleUrls: ['./single-country.component.css']
 })
 export class SingleCountryComponent implements OnInit {
-  info: any;
+  info: Response;
   infoKeys: any;
   infoValues: any;
   translations: any;

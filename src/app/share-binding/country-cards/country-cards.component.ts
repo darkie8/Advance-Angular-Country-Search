@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitte
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RegionCountryCurrencyLanguageService } from '../../region-country-currency-language.service';
+import { Info } from '../../country-view/country/response';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -20,12 +21,12 @@ export class CountryCardsComponent implements OnInit, OnChanges {
   @Output() output2: EventEmitter<any> = new EventEmitter<any>();
   @Output() output3: EventEmitter<any> = new EventEmitter<any>();
   @Output() output4: EventEmitter<any> = new EventEmitter<any>();
-  countryInfos: any;
+  countryInfos: Info;
   languages: {}[];
   currencies: {}[];
   flat: any;
   region: any;
-  zango: any;
+  zango: Info;
   constructor(
     private httpService: RegionCountryCurrencyLanguageService,
     private routeEnd: ActivatedRoute,

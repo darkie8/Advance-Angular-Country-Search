@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
 import { RegionCountryCurrencyLanguageService } from '../../region-country-currency-language.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Info } from './response';
 declare var $: any;
 
 @Component({
@@ -11,7 +12,7 @@ declare var $: any;
 })
 export class CountryComponent implements OnInit {
   id: any;
-  countryInfos: any;
+  countryInfos: Info;
   id1: any;
   id2: string;
   filter = {
@@ -28,8 +29,8 @@ export class CountryComponent implements OnInit {
   public currencies: any;
   public regionFilter: any;
   sortAlph: any;
-  zango: any;
-  countryInfos1 = {
+  zango: Info;
+  countryInfos1: Info = {
     sortedAlphabet: [],
     sortedNames: [], sortedProduct: []
   };
@@ -148,7 +149,7 @@ export class CountryComponent implements OnInit {
   }
   public filterev = () => {
     console.log($(window).width());
-     this.widthWin = ($(window).width() < 750) ? (($(window).width() < 500) ? 40 : 60) : 70;
+    this.widthWin = ($(window).width() < 750) ? (($(window).width() < 500) ? 40 : 60) : 70;
     $('#filterev').animate({ left: `${this.widthWin}vw` }, 500);
   }
   /**

@@ -1,0 +1,5 @@
+<li class="page-item text-center " *ngIf="countryInfos">
+  <a style="width: 30px;" class="page-link text-center p-0" href="#crude{{n}}" *ngFor="let j of countryInfos.sortedAlphabet;index as n">
+    <small>#{{j}}</small>
+  </a>
+</li>
